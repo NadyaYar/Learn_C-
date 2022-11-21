@@ -3,11 +3,11 @@
 using namespace std;
 
 int main(void) {
-    float first, second;
-    cout << "Input 1st and 2nd dividers - " << endl;
-    cin >> first;
-    cin >> second;
-    if (1.0 / first == 1.0 / second){
+    float num1, num2;
+    cout << "Input first and second dividers : " << endl;
+    cin >> num1;
+    cin >> num2;
+    if (1.0 / num1 == 1.0 / num2){
         cout << "Results are equal (by 0.000001 epsilon)";
         }
     else {
