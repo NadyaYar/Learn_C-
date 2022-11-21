@@ -3,11 +3,14 @@
 using namespace std;
 
 int main(void) {
-    int arr[4];
+    int array[4];
     for (int i = 0; i < 4; i++) {
-        cin >> arr[i];
-        if (arr[i] < 1 || arr[i] > 255) { return -1; }
+        cin >> array[i];
+        if (array[i] < 1 
+            || array[i] > 255) { 
+            return -1;
+        }
     }
-    cout << arr[0] << "." << arr[1] << "." << arr[2] << "." << arr[3];
+    cout << array[0] << "." << array[1] << "." << array[2] << "." << array[3];
     return 0;
 }
