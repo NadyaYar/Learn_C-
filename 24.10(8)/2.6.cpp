@@ -2,17 +2,17 @@
  
 using namespace std; 
 int main() { 
-  long c0; 
+  long num; 
   int counter; 
   while (true){ 
-    cin >> c0; 
-    while (c0!=1){ 
-      if (c0%2==0){ 
-        c0=c0/2; 
-      }else if (c0%2!=0){ 
-        c0=3*c0+1; 
+    cin >> num; 
+    while (num!=1){ 
+      if (num%2==0){ 
+        num=num/2; 
+      }else if (num%2!=0){ 
+        num=3*num+1; 
       } 
-      cout << c0 << endl; 
+      cout << num << endl; 
       counter++; 
     } 
     cout << "Steps = "; 
