@@ -1,0 +1,52 @@
+#include <string>
+#include <iostream>
+#include <map>
+
+int main()
+{
+std::string values;
+std::getline(std::cin, values);
+std::string template_str;
+std::getline(std::cin, template_str);
+
+
+// Parse the name-value pairs from the input string
+std::map<std::string, std::string> value_map;
+std::string delimiter = ",";
+size_t pos = 0;
+while ((pos = values.find(delimiter)) != std::string::npos) {
+    std::string pair = values.substr(0, pos);
+    size_t equals_pos = pair.find("=");
+    std::string name = pair.substr(0, equals_pos);
+    std::string value = pair.substr(equals_pos + 1);
+    value_map[name] = value;
+    values.erase(0, pos + delimiter.length());
+}
+// Handle the last pair
+size_t equals_pos = values.find("=");
+std::string name = values.substr(0, equals_pos);
+std::string value = values.substr(equals_pos + 1);
+value_map[name] = value;
+
+// Replace placeholders in the template with values
+std::string placeholder = "[";
+size_t placeholder_start = 0;
+size_t placeholder_end = 0;
+while ((placeholder_start = template_str.find(placeholder, placeholder_end)) != std::string::npos) {
+    placeholder_end = template_str.find("]", placeholder_start);
+    if (placeholder_end == std::string::npos) {
+        // Unmatched placeholder
+        break;
+    }
+    std::string name = template_str.substr(placeholder_start + 1, placeholder_end - placeholder_start - 1);
+    auto it = value_map.find(name);
+    if (it != value_map.end()) {
+        std::string value = it->second;
+        template_str.replace(placeholder_start, placeholder_end - placeholder_start + 1, value);
+        placeholder_end = placeholder_start + value.length();
+    }
+}
+
+std::cout << template_str << "\n";
+return 0;
+}

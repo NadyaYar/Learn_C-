@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+bool isPrime(int n) {
+    // Перевіряємо, чи число менше 2
+    if (n < 2) {
+        return false;
+    }
+
+    // Перевіряємо, чи є якийсь інший дільник для числа
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+
+    // Якщо жодного іншого дільника не знайдено, то число є простим
+    return true;
+}
+
+int main() {
+    int n;
+    cout << "Enter a number to check if it's prime: ";
+    cin >> n;
+
+    if (isPrime(n)) {
+        cout << n << " is prime" << endl;
+    } else {
+        cout << n << " is not prime" << endl;
+    }
+
+    return 0;
+}

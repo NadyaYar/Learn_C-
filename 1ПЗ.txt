@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+int main(void) {
+int vector[] = { 3, -5, 7, 10, -4, 14, 5, 2, -13 };
+int n = sizeof(vector) / sizeof(vector[0]);
+
+int *max_element_ptr = &vector[0]; // створення вказівника на перший елемент масиву
+
+// проходження по всіх елементах масиву та порівняння з поточним максимальним елементом
+for (int i = 1; i < n; i++) {
+if (*max_element_ptr < vector[i]) {
+max_element_ptr = &vector[i]; // зміна вказівника на елемент масиву з більшим значенням
+}
+}
+
+cout << "Максимальний елемент масиву: " << *max_element_ptr << endl;
+
+return 0;
+}

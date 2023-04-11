@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main() {
+    // Встановлюємо генератор випадкових чисел
+    srand(time(NULL));
+
+    // Створюємо динамічний масив 3х3
+    int** matrix = new int*[3];
+    for (int i = 0; i < 3; i++) {
+        matrix[i] = new int[3];
+    }
+
+    // Заповнюємо масив випадковими значеннями
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            matrix[i][j] = rand() % 10;
+        }
+    }
+
+    // Виводимо на екран елементи головної діагоналі
+    cout << "Елементи головної діагоналі: ";
+    for (int i = 0; i < 3; i++) {
+        cout << matrix[i][i] << " ";
+    }
+    cout << endl;
+
+    // Виводимо на екран елементи побічної діагоналі
+    cout << "Елементи побічної діагоналі: ";
+    for (int i = 0; i < 3; i++) {
+        cout << matrix[i][2 - i] << " ";
+    }
+    cout << endl;
+
+    // Рахуємо кількість парних та непарних елементів масиву
+    int even_count = 0;
+    int odd_count = 0;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (matrix[i][j] % 2 == 0) {
+                even_count++;
+            } else {
+                odd_count++;
+            }
+        }
+    }
+
+    // Виводимо на екран кількість парних та непарних елементів масиву
+    cout << "Кількість парних елементів: " << even_count << endl;
+    cout << "Кількість непарних елементів: " << odd_count << endl;
+
+    // Звільняємо пам'ять
+    for (int i = 0; i < 3; i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+
+    return 0;
+}

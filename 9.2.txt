@@ -1,0 +1,44 @@
+#include <string>
+#include <iostream>
+#include <regex>
+
+int main()
+{
+std::string password;
+std::getline(std::cin, password);
+
+
+std::regex length_regex(".{8,}");
+std::regex upper_regex("[A-Z]");
+std::regex lower_regex("[a-z]");
+std::regex digit_regex("\\d");
+std::regex special_regex("\\W");
+
+bool is_valid = true;
+if (!std::regex_match(password, length_regex)) {
+    std::cout << "Password must be at least 8 characters long." << std::endl;
+    is_valid = false;
+}
+if (!std::regex_search(password, upper_regex)) {
+    std::cout << "Password must contain at least one upper-case letter." << std::endl;
+    is_valid = false;
+}
+if (!std::regex_search(password, lower_regex)) {
+    std::cout << "Password must contain at least one lower-case letter." << std::endl;
+    is_valid = false;
+}
+if (!std::regex_search(password, digit_regex)) {
+    std::cout << "Password must contain at least one digit." << std::endl;
+    is_valid = false;
+}
+if (!std::regex_search(password, special_regex)) {
+    std::cout << "Password must contain at least one special character." << std::endl;
+    is_valid = false;
+}
+
+if (is_valid) {
+    std::cout << "Password is valid." << std::endl;
+}
+
+return 0;
+}
