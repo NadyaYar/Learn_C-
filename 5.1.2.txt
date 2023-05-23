@@ -1,0 +1,61 @@
+#include <iostream>
+
+
+class AdHocSquare {
+public:
+    AdHocSquare(double side) {
+        set_side(side);
+    }
+
+    void set_side(double side) {
+        this->side = side;
+    }
+
+    double get_area() {
+        return side * side;
+    }
+
+private:
+    double side;
+};
+
+class LazySquare {
+public:
+    LazySquare(double side) {
+        set_side(side);
+    }
+
+    void set_side(double side) {
+        if (side != this->side) {
+            this->side = side;
+            side_changed = true;
+        }
+    }
+
+    double get_area() {
+        if (side_changed) {
+            area = side * side;
+            side_changed = false;
+        }
+        return area;
+    }
+
+private:
+    double side;
+    double area;
+    bool side_changed;
+};
+
+int main() {
+    AdHocSquare adHocSquare(5.0);
+    std::cout << "AdHocSquare area: " << adHocSquare.get_area() << std::endl;
+    adHocSquare.set_side(7.0);
+    std::cout << "AdHocSquare area after side change: " << adHocSquare.get_area() << std::endl;
+
+    LazySquare lazySquare(5.0);
+    std::cout << "LazySquare area: " << lazySquare.get_area() << std::endl;
+    lazySquare.set_side(7.0);
+    std::cout << "LazySquare area after side change: " << lazySquare.get_area() << std::endl;
+
+    return 0;
+}

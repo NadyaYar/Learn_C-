@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class Person
+{
+public:
+    string name;
+    int age;
+
+    
+    Person(string myName, int myAge)
+    {
+        name = myName;
+        age = myAge;
+    }
+};
+
+void print(Person* person)
+{
+    cout << person->name << " is " << person->age << " years old" << endl;
+}
+
+int main()
+{
+    Person person("Harry", 23); 
+
+    cout << "Meet " << person.name << endl;
+    print(&person);
+
+    return 0;
+}

@@ -1,0 +1,62 @@
+#include <iostream>
+
+using namespace std;
+
+
+class ShopItemOrder{
+    private:
+    string itemName;
+    double itemPrice;
+    int numberOfitems;
+    
+    public:
+    // Setter
+    
+    void setItemName(string name) {
+      itemName = name;
+    }
+    
+    void setItemPrice(double price){
+        itemPrice = price;
+    }
+    
+    void setNumberOfItems(int number){
+        numberOfitems = number;
+    }
+    
+    // Getter
+    string getItemName() {
+      return itemName;
+    }
+    
+    double getItemPrice() {
+      return itemPrice;
+    }
+    
+     int  getNumberOfItems() {
+      return numberOfitems;
+    }
+    
+    double countTotalSum(double price , int numberOfitems);
+    
+};
+
+ double ShopItemOrder::countTotalSum(double price , int numberOfitems){
+     if (numberOfitems == 0){
+         cout<< "Please ,choose the number of items";
+     } else {
+     return price * numberOfitems;
+     }
+ }
+
+int main() {
+  ShopItemOrder shopItemOrder;
+  shopItemOrder.setItemName("Apple");
+  shopItemOrder.setItemPrice(20.1);
+  shopItemOrder.setNumberOfItems(2);
+  
+  cout << "name of item: " << shopItemOrder.getItemName() << ", price: " << shopItemOrder.getItemPrice()
+  << ", count: " << shopItemOrder.getNumberOfItems() << "; total sum: " 
+  << shopItemOrder.countTotalSum(shopItemOrder.getItemPrice(), shopItemOrder.getNumberOfItems());
+  return 0;
+}

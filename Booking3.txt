@@ -1,0 +1,94 @@
+#include "iostream"
+
+using namespace std;
+
+
+class FlightBooking {
+private:
+    int id;
+    int capacity;
+    int reserved;
+
+public:
+    FlightBooking(int id, int capacity, int reserved) {
+        this->id = id;
+        this->capacity = capacity;
+        this->reserved = reserved;
+    }
+
+
+    void printStatus() {
+        cout << "Flight " << id << ": " << reserved << "/" << capacity << " (" << (reserved * 100 / capacity)
+             << "%) seats taken" << endl;
+    }
+
+    void add(int n) {
+        if (reserved + n > capacity * 1.05) {
+            cout << "Cannot reserve more seats than the capacity of the flight!" << endl;
+            return;
+        }
+        reserved += n;
+    }
+
+    void cancel(int n) {
+        if (reserved - n < 0) {
+            cout << "Cannot cancel more seats than the reserved seats!" << endl;
+            return;
+        }
+        reserved -= n;
+    }
+
+    int getId() {
+        return id;
+    }
+
+    void setId(int id) {
+        FlightBooking::id = id;
+    }
+
+    int getCapacity() {
+        return capacity;
+    }
+
+    void setCapacity(int newCapacity) {
+        FlightBooking::capacity = newCapacity;
+    }
+
+    int getReserved() {
+        return reserved;
+    }
+
+    void setReserved(int newReserved) {
+        FlightBooking::reserved = newReserved;
+    }
+
+};
+
+int main() {
+    FlightBooking flightBooking(1, 56, 30);
+
+    std::string command = "";
+    while (command != "quit") {
+        flightBooking.printStatus();
+        std::cout << "What would you like to do?: ";
+        std::cin >> command;
+
+        if (command == "add") {
+            int num;
+            std::cout << "Write number of seats: ";
+            std::cin >> num;
+            flightBooking.add(num);
+        } else if (command == "cancel") {
+            int num;
+            std::cout << "Write number of cancel seats:: ";
+            std::cin >> num;
+            flightBooking.cancel(num);
+        } else if (command != "quit") {
+            break;
+        } else {
+            std::cout << "Please, choose another command" << std::endl;
+        }
+    }
+
+    return 0;
+}

@@ -1,0 +1,114 @@
+#include <iostream>
+#include <string>
+#include <limits>
+
+class GymMembershipManager {
+private:
+    int memberIds[10];
+    std::string memberNames[10];
+    int subscriptionMonths[10];
+    int memberCount;
+
+public:
+    GymMembershipManager() : memberCount(0) {}
+
+    void createMember(int memberId, const std::string& name) {
+        if (memberCount >= 10 || memberId == 0 || findMemberIndex(memberId) != -1) {
+            std::cout << "Cannot perform this operation. Member ID already exists or maximum capacity reached.\n";
+            return;
+        }
+
+        memberIds[memberCount] = memberId;
+        memberNames[memberCount] = name;
+        subscriptionMonths[memberCount] = 0;
+
+        memberCount++;
+        std::cout << "Member created successfully.\n";
+    }
+
+    void deleteMember(int memberId) {
+        int index = findMemberIndex(memberId);
+        if (index != -1) {
+            for (int i = index; i < memberCount - 1; i++) {
+                memberIds[i] = memberIds[i + 1];
+                memberNames[i] = memberNames[i + 1];
+                subscriptionMonths[i] = subscriptionMonths[i + 1];
+            }
+            memberCount--;
+            std::cout << "Member deleted successfully.\n";
+        } else {
+            std::cout << "Cannot perform this operation. Member ID does not exist.\n";
+        }
+    }
+
+    void extendMembership(int memberId, int months) {
+        int index = findMemberIndex(memberId);
+        if (index != -1) {
+            if (months > 0) {
+                subscriptionMonths[index] += months;
+                std::cout << "Membership extended successfully.\n";
+            } else {
+                std::cout << "Cannot perform this operation. Invalid number of months.\n";
+            }
+        } else {
+            std::cout << "Cannot perform this operation. Member ID does not exist.\n";
+        }
+    }
+
+    void cancelMembership(int memberId) {
+        int index = findMemberIndex(memberId);
+        if (index != -1) {
+            subscriptionMonths[index] = 0;
+            std::cout << "Membership canceled successfully.\n";
+        } else {
+            std::cout << "Cannot perform this operation. Member ID does not exist.\n";
+        }
+    }
+
+private:
+    int findMemberIndex(int memberId) {
+        for (int i = 0; i < memberCount; i++) {
+            if (memberIds[i] == memberId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
+
+int main() {
+    GymMembershipManager manager;
+    std::string command;
+
+    while (true) {
+        std::cout << "Enter a command: ";
+        std::cin >> command;
+
+        if (command == "create") {
+            int memberId;
+            std::string name;
+            std::cin >> memberId;
+
+            manager.createMember(memberId, name);
+        } else if (command == "delete") {
+            int memberId;
+            std::cin >> memberId;
+            manager.deleteMember(memberId);
+        } else if (command == "extend") {
+            int memberId, months;
+            std::cin >> memberId >> months;
+            manager.extendMembership(memberId, months);
+        } else if (command == "cancel") {
+            int memberId;
+            std::cin >> memberId;
+            manager.cancelMembership(memberId);
+        } else if (command == "quit") {
+            break;
+        } else {
+            std::cout << "Invalid command. Please try again.\n";
+        }
+
+    }
+
+    return 0;
+}
